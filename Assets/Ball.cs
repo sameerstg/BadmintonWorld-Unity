@@ -6,7 +6,13 @@ public class Ball : MonoBehaviour
 {
 
     public static bool isBallOut;
-
+    private void Update()
+    {
+        if (gameObject.transform.position.y <-2)
+        {
+            gameObject.SetActive(false);
+        }
+    }
 
 
     private void OnCollisionEnter(Collision collision)
@@ -17,6 +23,7 @@ public class Ball : MonoBehaviour
             StartCoroutine(SetBallOff());
         }
     }
+
     IEnumerator SetBallOff()
     {
         yield return new WaitForSeconds(3f);

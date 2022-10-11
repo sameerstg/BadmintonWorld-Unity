@@ -5,7 +5,7 @@ public class BallLauncher : MonoBehaviour {
 
 
 	public static BallLauncher _instance;
-	public float minimumx, minimumy, maxmumx, maximumy;
+	public float minimumx, minimumz, maxmumx, maximumz;
 	public static GameObject ball;
 	Rigidbody ballrb;
 	public Transform target;
@@ -37,7 +37,10 @@ public class BallLauncher : MonoBehaviour {
 		}
 	}
 
-	void Launch() {
+	public void Launch() {
+
+		target.transform.position = new Vector3(Random.Range(minimumx, maxmumx), 0, Random.Range(minimumz, maximumz));
+		ball.SetActive(true);
 		Physics.gravity = Vector3.up * gravity;
 		ballrb.useGravity = true;
 		ballrb.velocity = CalculateLaunchData ().initialVelocity;
@@ -46,17 +49,9 @@ public class BallLauncher : MonoBehaviour {
 		ball.SetActive(true);
 		Physics.gravity = Vector3.up * gravity;
 		ballrb.useGravity = true;
-        if (boost)
-        {
-			LaunchData launchData = CalculateLaunchData();
-			launchData.timeToTarget *= 10;
-			ballrb.velocity = launchData.initialVelocity;
-		}
-        else
-        {
+		print(CalculateLaunchData().initialVelocity);
 			ballrb.velocity = CalculateLaunchData().initialVelocity;
 
-		}
 	}
 
 	LaunchData CalculateLaunchData() {

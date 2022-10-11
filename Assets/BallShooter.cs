@@ -4,13 +4,26 @@ using UnityEngine;
 
 public class BallShooter : MonoBehaviour
 {
-    public Vector3 shootingPostition;
-
-
-
+    public Transform shootingPostition;
+    public GameObject ball;
+    private void Start()
+    {
+        Invoke("ShootBall",2.0f);
+        ball = BallLauncher.ball;
+    }
+    private void Update()
+    {
+        if (!ball.activeInHierarchy)
+        {
+            ShootBall();
+            
+        }
+    }
     public void ShootBall()
     {
-        BallLauncher.ball.transform.position = shootingPostition;
-/*        BallLauncher._instance()
-*/    }
+        print("shoot");
+        
+        ball.transform.position = shootingPostition.position+Vector3.back *2;
+        BallLauncher._instance.Launch();
+    }
 }
