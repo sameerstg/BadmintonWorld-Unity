@@ -39,14 +39,14 @@ public class TouchController : MonoBehaviour
             if (Input.GetKey(KeyCode.S))
             {
 
-                BallLauncher._instance.Launch(worldPosition);
+                BallManager._instance.Launch(worldPosition);
             }
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
-            BallLauncher.ball.transform.position = AICharacterControl._instance.transform.position;
-            BallLauncher.ball.transform.position += new Vector3(2, 4, 0);
-            BallLauncher.ball.SetActive(false);
+            BallManager.ball.transform.position = AICharacterControl._instance.transform.position;
+            BallManager.ball.transform.position += new Vector3(2, 4, 0);
+            BallManager.ball.SetActive(false);
         }
           
     }

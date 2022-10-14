@@ -3925,6 +3925,14 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 1727562517853056188, guid: f2599ae2f756f4e4f9ab952893163047, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727562517853056188, guid: f2599ae2f756f4e4f9ab952893163047, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4643425627439929648, guid: f2599ae2f756f4e4f9ab952893163047, type: 3}
       propertyPath: m_TagString
       value: Ground
@@ -3961,6 +3969,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.3283413, y: 0.17912914, z: 5.0911563e-15}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1677470539 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1727562517853056188, guid: f2599ae2f756f4e4f9ab952893163047, type: 3}
+  m_PrefabInstance: {fileID: 1580392739}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1677470543
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677470539}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.00018000005, y: 0.14713731, z: 0.010384318}
+  m_Center: {x: 0, y: 1.5777941e-16, z: 0.0055513685}
 --- !u!1001 &1700228407
 PrefabInstance:
   m_ObjectHideFlags: 0

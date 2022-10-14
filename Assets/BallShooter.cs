@@ -8,12 +8,12 @@ public class BallShooter : MonoBehaviour
     public GameObject ball;
     private void Start()
     {
-        Invoke("ShootBall",2.0f);
-        ball = BallLauncher.ball;
+        Invoke("ShootBall", 2.0f);
+        ball = BallManager.ball;
     }
     private void Update()
     {
-        if (!ball.activeInHierarchy)
+        if (!ball.activeInHierarchy || Input.GetKeyDown(KeyCode.P))
         {
             ShootBall();
             
@@ -21,9 +21,9 @@ public class BallShooter : MonoBehaviour
     }
     public void ShootBall()
     {
-        print("shoot");
+        
         
         ball.transform.position = shootingPostition.position+Vector3.back *2;
-        BallLauncher._instance.Launch();
+        BallManager._instance.Launch();
     }
 }
