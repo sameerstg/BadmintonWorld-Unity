@@ -106,15 +106,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
+    agentRadius: 1
     agentHeight: 2
-    agentSlope: 45
-    agentClimb: 0.4
+    agentSlope: 48.89
+    agentClimb: 1.81
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.33333334
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -265,7 +265,6 @@ GameObject:
   m_Component:
   - component: {fileID: 240350155}
   - component: {fileID: 240350154}
-  - component: {fileID: 240350156}
   - component: {fileID: 240350157}
   m_Layer: 0
   m_Name: Camera For Trail
@@ -324,7 +323,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 240350152}
-  m_LocalRotation: {x: -0.15557748, y: -0.10324158, z: -0.016351858, w: 0.98227775}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -332,20 +331,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &240350156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 240350152}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48fb919f8b0d44e48845a80e30b9b004, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trailObj: {fileID: 3937331216620935259, guid: 0c3b55470d0e3ab4fa4af2d22f4a7bd3, type: 3}
-  trailCamera: {fileID: 0}
 --- !u!114 &240350157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,7 +423,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &403291827
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -684,7 +669,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 0.6
+  m_Speed: 1
   m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -4087,7 +4072,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7029948723529949830, guid: f2599ae2f756f4e4f9ab952893163047, type: 3}
       propertyPath: m_TagString
-      value: Ground
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -7029948723529949830, guid: f2599ae2f756f4e4f9ab952893163047, type: 3}
       propertyPath: m_StaticEditorFlags

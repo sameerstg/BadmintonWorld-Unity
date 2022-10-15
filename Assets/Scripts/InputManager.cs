@@ -39,7 +39,6 @@ public class InputManager : MonoBehaviour
     }
     void StartTouch(InputAction.CallbackContext context)
     {
-
         OnStartTouch?.Invoke(inputSystem.Touch.TouchPosition.ReadValue<Vector2>(), (float)context.startTime);
 
         isTouching = true;

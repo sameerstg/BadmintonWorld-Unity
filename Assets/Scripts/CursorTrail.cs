@@ -98,16 +98,8 @@ public class CursorTrail : MonoBehaviour
 
     private void AddPoint(int index, Vector2 postion)
     {
-        Vector3 mousePosition = postion;
-        try
-        {
-            points[index] = (Cam.ViewportToWorldPoint(new Vector3(mousePosition.x / Screen.width, mousePosition.y / Screen.height, distanceFromCamera)));
-        }
-        catch (Exception)
-        {
 
-
-        }
+            points[index] = (Cam.ViewportToWorldPoint(new Vector3(postion.x / Screen.width, postion.y / Screen.height, distanceFromCamera)));
 
     }
 
