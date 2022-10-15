@@ -48,8 +48,6 @@ public class CursorTrail : MonoBehaviour
 
     private void StayTouch(Vector3 position)
     {
-        //print($"stay and even = {position}");
-        //print(position);
         AddPoint(1, new Vector3(position.x, position.y, 0));
         UpdateTrailPoints();
 

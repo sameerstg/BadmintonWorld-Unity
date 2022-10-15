@@ -39,30 +39,21 @@ public class InputManager : MonoBehaviour
     }
     void StartTouch(InputAction.CallbackContext context)
     {
-/*        StartTouch(context);
-*/        
 
         OnStartTouch?.Invoke(inputSystem.Touch.TouchPosition.ReadValue<Vector2>(), (float)context.startTime);
-        /*        print(inputSystem.Touch.TouchPosition.ReadValue<Vector2>());
-        */
+
         isTouching = true;
         StartCoroutine(StayTouch());
-
-        /*        print(inputSystem.Touch.TouchPosition.ReadValue<Vector2>());
-        */
     }
     void EndTouch(InputAction.CallbackContext context)
     {
-        //print("End");
         isTouching = false;
         OnEndTouch?.Invoke(inputSystem.Touch.TouchPosition.ReadValue<Vector2>(), (float)context.time);
-        print(inputSystem.Touch.TouchPosition.ReadValue<Vector2>());
 
     }
     private void StayTouch(InputAction.CallbackContext ctx)
     {
         OnStayTouch?.Invoke(inputSystem.Touch.TouchPosition.ReadValue<Vector2>());
-        //print("stay");
     }
     IEnumerator StayTouch()
     {
