@@ -46,7 +46,7 @@ public class HitCalculator : MonoBehaviour
     {
 
 
-        SetTartgetPosition(Cam.ViewportToWorldPoint(new Vector3(mousePosition.x / Screen.width,8,8));
+        SetTartgetPosition((startPos.x + position.x)/Screen.currentResolution.width);
 
         //obj.transform.position = Camera.main.ViewportToWorldPoint( new Vector3(defaultPos.x+(position.x/Screen.width), defaultPos.y, defaultPos.z));
         //obj.transform.position = new Vector3(obj.transform.position.x,defaultPos.y,defaultPos.z);
