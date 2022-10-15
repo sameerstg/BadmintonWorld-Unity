@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager _instance;
-    
+
     public bool practiceMode;
     private void Awake()
     {
@@ -13,12 +11,12 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        
+
     }
 
     void Update()
     {
-        
+
     }
-    
+
 }

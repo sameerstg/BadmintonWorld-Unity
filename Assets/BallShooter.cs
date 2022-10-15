@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BallShooter : MonoBehaviour
@@ -16,14 +14,15 @@ public class BallShooter : MonoBehaviour
         if (!ball.activeInHierarchy || Input.GetKeyDown(KeyCode.P))
         {
             ShootBall();
-            
+
         }
     }
     public void ShootBall()
     {
-        
-        
-        ball.transform.position = shootingPostition.position+Vector3.back *2;
+
+
+        ball.transform.position = shootingPostition.position + Vector3.back * 2;
         BallManager._instance.Launch();
     }
+
 }

@@ -2,16 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class Lerp : MonoBehaviour
 {
     public static Lerp _instance;
-   public GameObject startPostion,endPostion;
-    
-    public float force,height;
-    float tempForce,tempHeight;
+    public GameObject startPostion, endPostion;
+
+    public float force, height;
+    float tempForce, tempHeight;
     Vector3 angle;
     public GameObject sphere;
     [SerializeField] private LineRenderer _line;
@@ -31,9 +30,9 @@ public class Lerp : MonoBehaviour
     }
     IEnumerator DebugAll()
     {
-        for (float i = 8; i <=11; i += 0.2f)
+        for (float i = 8; i <= 11; i += 0.2f)
         {
-            for (float j = 1; j <=1.5; j+=0.1f)
+            for (float j = 1; j <= 1.5; j += 0.1f)
             {
                 yield return new WaitForSeconds(.5f);
                 force = i;
@@ -46,11 +45,11 @@ public class Lerp : MonoBehaviour
     }
     private void Start()
     {
-           
+
         currentScne = SceneManager.GetActiveScene();
         CreatePhysicsScene();
         StartCoroutine(DebugAll());
-        
+
     }
 
     private void CreatePhysicsScene()
@@ -61,10 +60,11 @@ public class Lerp : MonoBehaviour
         foreach (Transform obj in _obstaclesParent)
         {
             var ghostObj = Instantiate(obj.gameObject, obj.position, obj.rotation);
-/*            ghostObj.GetComponent<Renderer>().enabled = false;
-*/            SceneManager.MoveGameObjectToScene(ghostObj, _simulationScene);
+            /*            ghostObj.GetComponent<Renderer>().enabled = false;
+            */
+            SceneManager.MoveGameObjectToScene(ghostObj, _simulationScene);
             if (!ghostObj.isStatic) _spawnedObjects.Add(obj, ghostObj.transform);
-            
+
         }
     }
     public void DebugTrajectory()
@@ -72,25 +72,25 @@ public class Lerp : MonoBehaviour
         tempForce = force;
         tempHeight = height;
         OnlySimulateTrajectory(sphere, startPostion.transform.position, (-angle.normalized));
-        
+
     }
     private void FixedUpdate()
     {
-        
-        
+
+
     }
     private void Update()
     {
-       /* if (force != tempForce || tempHeight != height)
-        {
-            DebugTrajectory();
+        /* if (force != tempForce || tempHeight != height)
+         {
+             DebugTrajectory();
 
-        }*/
+         }*/
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            angle = (startPostion.transform.position - endPostion.transform.position );
-            SimulateTrajectory(sphere, startPostion.transform.position, ( -angle.normalized) );
+            angle = (startPostion.transform.position - endPostion.transform.position);
+            SimulateTrajectory(sphere, startPostion.transform.position, (-angle.normalized));
         }
     }
     /*private void Update()
@@ -98,13 +98,13 @@ public class Lerp : MonoBehaviour
         
     }*/
 
-    public void Init(GameObject obg,Vector3 velocity)
+    public void Init(GameObject obg, Vector3 velocity)
     {
-                
 
-        obg.GetComponent<Rigidbody>().velocity = (velocity + Vector3.up *height)*force;
+
+        obg.GetComponent<Rigidbody>().velocity = (velocity + Vector3.up * height) * force;
     }
-    
+
     public void SimulateTrajectory(GameObject ballPrefab, Vector3 pos, Vector3 velocity)
     {
         var ghostObj = Instantiate(ballPrefab, pos, Quaternion.identity);
@@ -113,35 +113,36 @@ public class Lerp : MonoBehaviour
         ghostObj2.name = "2";
         SceneManager.MoveGameObjectToScene(ghostObj.gameObject, _simulationScene);
 
-        Init(ghostObj,velocity);
-        Init(ghostObj2,velocity);
+        Init(ghostObj, velocity);
+        Init(ghostObj2, velocity);
         _line.positionCount = _maxPhysicsFrameIterations;
 
         for (var i = 0; i < _maxPhysicsFrameIterations; i++)
         {
-          
-                _physicsScene.Simulate(Time.fixedDeltaTime);
-                _line.SetPosition(i, ghostObj.transform.position);
-           
+
+            _physicsScene.Simulate(Time.fixedDeltaTime);
+            _line.SetPosition(i, ghostObj.transform.position);
+
         }
 
         Destroy(ghostObj);
-    }public void OnlySimulateTrajectory(GameObject ballPrefab, Vector3 pos, Vector3 velocity)
+    }
+    public void OnlySimulateTrajectory(GameObject ballPrefab, Vector3 pos, Vector3 velocity)
     {
         var ghostObj = Instantiate(ballPrefab, pos, Quaternion.identity);
         SceneManager.MoveGameObjectToScene(ghostObj.gameObject, _simulationScene);
 
-        Init(ghostObj,velocity);
+        Init(ghostObj, velocity);
         _line.positionCount = _maxPhysicsFrameIterations;
 
         for (var i = 0; i < _maxPhysicsFrameIterations; i++)
         {
-           
-                _physicsScene.Simulate(Time.fixedDeltaTime);
-                _line.SetPosition(i, ghostObj.transform.position);
-           
-            
-            
+
+            _physicsScene.Simulate(Time.fixedDeltaTime);
+            _line.SetPosition(i, ghostObj.transform.position);
+
+
+
         }
 
         Destroy(ghostObj);

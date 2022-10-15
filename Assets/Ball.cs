@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
@@ -8,7 +7,7 @@ public class Ball : MonoBehaviour
     public static bool isBallOut;
     private void Update()
     {
-        if (gameObject.transform.position.y <-2)
+        if (gameObject.transform.position.y < -2)
         {
             gameObject.SetActive(false);
         }

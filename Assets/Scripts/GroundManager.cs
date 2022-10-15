@@ -1,5 +1,5 @@
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GroundManager : MonoBehaviour
@@ -11,7 +11,7 @@ public class GroundManager : MonoBehaviour
 
     private void Start()
     {
-        allGrounds =  GameObject.FindGameObjectsWithTag("Ground").ToList();
+        allGrounds = GameObject.FindGameObjectsWithTag("Ground").ToList();
         foreach (var item in allGrounds)
         {
             if (item.name.StartsWith('m'))

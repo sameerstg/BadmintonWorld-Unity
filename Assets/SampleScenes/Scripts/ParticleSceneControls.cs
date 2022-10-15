@@ -55,8 +55,8 @@ namespace UnityStandardAssets.SceneUtils
 
         private void OnDisable()
         {
-			previousButton.onClick.RemoveListener (Previous);
-			nextButton.onClick.RemoveListener (Next);
+            previousButton.onClick.RemoveListener(Previous);
+            nextButton.onClick.RemoveListener(Next);
         }
 
 
@@ -91,7 +91,7 @@ namespace UnityStandardAssets.SceneUtils
 
 
 
-            sceneCamera.localPosition = Vector3.SmoothDamp(sceneCamera.localPosition, Vector3.forward*-s_Selected.camOffset,
+            sceneCamera.localPosition = Vector3.SmoothDamp(sceneCamera.localPosition, Vector3.forward * -s_Selected.camOffset,
                                                        ref m_CamOffsetVelocity, 1);
 
             if (s_Selected.mode == Mode.Activate)
@@ -118,13 +118,13 @@ namespace UnityStandardAssets.SceneUtils
                         rot = Quaternion.identity;
                     }
 
-                    var pos = hit.point + hit.normal*spawnOffset;
+                    var pos = hit.point + hit.normal * spawnOffset;
 
                     if ((pos - m_LastPos).magnitude > s_Selected.minDist)
                     {
                         if (s_Selected.mode != Mode.Trail || m_Instance == null)
                         {
-                            m_Instance = (Transform) Instantiate(s_Selected.transform, pos, rot);
+                            m_Instance = (Transform)Instantiate(s_Selected.transform, pos, rot);
 
 
                             m_CurrentParticleList.Add(m_Instance);
@@ -162,7 +162,7 @@ namespace UnityStandardAssets.SceneUtils
 #if !MOBILE_INPUT
         void KeyboardInput()
         {
-            if(Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
                 Previous();
 
             if (Input.GetKeyDown(KeyCode.RightArrow))

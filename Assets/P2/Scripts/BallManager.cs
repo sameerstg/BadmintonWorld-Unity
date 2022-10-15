@@ -10,7 +10,7 @@ public class BallManager : MonoBehaviour
     Rigidbody ballrb;
     public Transform target;
 
-    public float h = 1;
+    public float height = 1;
     public float gravity = -18;
 
     public bool debugPath;
@@ -18,6 +18,12 @@ public class BallManager : MonoBehaviour
     public Vector3 lastLaunchPosition;
     public float lastLaunchTime;
     TrailRenderer trail;
+
+    public enum BallSpeed
+    {
+        slowest, slow, slowMedium, medium, mediumFast, fast, fastest
+    }
+    public BallSpeed ballSpeed;
     private void Awake()
     {
         _instance = this;
@@ -44,13 +50,15 @@ public class BallManager : MonoBehaviour
 
     public void Launch()
     {
+        SetBallSpeed();
         trail.Clear();
         target.transform.position = new Vector3(Random.Range(minimumx, maxmumx), 0, Random.Range(minimumz, maximumz));
-        print("shoot");
-
+        /*        print(target.position);
+        */
         ball.SetActive(true);
         Physics.gravity = Vector3.up * gravity;
         ballrb.useGravity = true;
+
         ballrb.velocity = CalculateLaunchData().initialVelocity;
     }
     public void Launch(Vector3 position)
@@ -63,6 +71,17 @@ public class BallManager : MonoBehaviour
         ballrb.useGravity = true;
         print(CalculateLaunchData().initialVelocity);
         ballrb.velocity = CalculateLaunchData().initialVelocity;
+
+    }
+    public void Launch(Vector3 position, float height, float gravity)
+    {
+        trail.Clear();
+
+        target.position = position;
+        ball.SetActive(true);
+        Physics.gravity = Vector3.up * gravity;
+        ballrb.useGravity = true;
+        ballrb.velocity = CalculateLaunchData(height, gravity).initialVelocity;
 
     }
     public void Launch(Vector2 minimumXPosAndYPos, Vector2 maximumXPosAndYPos)
@@ -82,8 +101,19 @@ public class BallManager : MonoBehaviour
     {
         float displacementY = target.position.y - ballrb.position.y;
         Vector3 displacementXZ = new Vector3(target.position.x - ballrb.position.x, 0, target.position.z - ballrb.position.z);
-        float time = Mathf.Sqrt(-2 * h / gravity) + Mathf.Sqrt(2 * (displacementY - h) / gravity);
-        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * h);
+        float time = Mathf.Sqrt(-2 * height / gravity) + Mathf.Sqrt(2 * (displacementY - height) / gravity);
+        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * height);
+        Vector3 velocityXZ = displacementXZ / time;
+
+        return new LaunchData(velocityXZ + velocityY * -Mathf.Sign(gravity), time);
+    }
+    LaunchData CalculateLaunchData(float height, float gravity)
+    {
+
+        float displacementY = target.position.y - ballrb.position.y;
+        Vector3 displacementXZ = new Vector3(target.position.x - ballrb.position.x, 0, target.position.z - ballrb.position.z);
+        float time = Mathf.Sqrt(-2 * height / gravity) + Mathf.Sqrt(2 * (displacementY - height) / gravity);
+        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * height);
         Vector3 velocityXZ = displacementXZ / time;
 
         return new LaunchData(velocityXZ + velocityY * -Mathf.Sign(gravity), time);
@@ -104,7 +134,37 @@ public class BallManager : MonoBehaviour
             previousDrawPoint = drawPoint;
         }
     }
-
+    void SetBallSpeed()
+    {
+        int level = (int)ballSpeed;
+        switch (level)
+        {
+            case 0:
+                gravity = -10;
+                break;
+            case 1:
+                gravity = -18;
+                break;
+            case 2:
+                gravity = -100;
+                break;
+            case 3:
+                gravity = -200;
+                break;
+            case 4:
+                gravity = -300;
+                break;
+            case 5:
+                gravity = -400;
+                break;
+            case 6:
+                gravity = -500;
+                break;
+            default:
+                gravity = -18;
+                break;
+        }
+    }
     struct LaunchData
     {
         public Vector3 initialVelocity;

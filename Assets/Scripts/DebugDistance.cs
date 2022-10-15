@@ -1,16 +1,13 @@
 using Newtonsoft.Json;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class DebugDistance : MonoBehaviour
 {
     Vector3 startPosition;
     public GameObject pointer;
     bool isCollided = false;
-    Lerp lerp ; 
-    
+    Lerp lerp;
+
     void Start()
     {
         startPosition = transform.position;
@@ -19,7 +16,7 @@ public class DebugDistance : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        
+
         if (collision.collider.CompareTag("Finish") && !isCollided)
         {
             isCollided = true;
@@ -28,7 +25,7 @@ public class DebugDistance : MonoBehaviour
                *            
                *            
             */
-            if (Vector3.Distance(startPosition, collision.GetContact(0).point)>3)
+            if (Vector3.Distance(startPosition, collision.GetContact(0).point) > 3)
             {
                 ShotDetail sd = new ShotDetail(lerp.force, lerp.height, Vector3.Distance(startPosition, collision.GetContact(0).point));
                 lerp.shotDetails.Add(sd);
@@ -36,8 +33,8 @@ public class DebugDistance : MonoBehaviour
                 string jsonString = JsonConvert.SerializeObject((lerp.shotDetails));
                 System.IO.File.WriteAllText(Application.persistentDataPath + "/Shotdetails.json", jsonString);
             }
-             
-            
+
+
 
         }
     }
@@ -48,14 +45,14 @@ public class ShotDetail
     public float force;
     public float height;
 
-    public ShotDetail(float force,float height,float distance)
+    public ShotDetail(float force, float height, float distance)
     {
         this.force = force;
         this.height = height;
         this.distance = distance;
     }
 
-   
+
 
     public void DebugResult()
     {
