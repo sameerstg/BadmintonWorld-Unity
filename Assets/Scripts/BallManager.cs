@@ -72,8 +72,8 @@ public class BallManager : MonoBehaviour
         ball.SetActive(true);
         Physics.gravity = Vector3.up * gravity;
         ballrb.useGravity = true;
-        print(CalculateLaunchData().initialVelocity);
-        ballrb.velocity = CalculateLaunchData().initialVelocity;
+/*        print(CalculateLaunchData().initialVelocity);
+*/        ballrb.velocity = CalculateLaunchData().initialVelocity;
 
     }
     public void Launch(Vector3 position, float height, float gravity)
@@ -139,7 +139,6 @@ public class BallManager : MonoBehaviour
             float simulationTime = i / (float)resolution * launchData.timeToTarget;
             Vector3 displacement = launchData.initialVelocity * simulationTime + Vector3.up * gravity * simulationTime * simulationTime / 2f;
             Vector3 drawPoint = ballrb.position + displacement;
-            print(i);
             positions[i] = drawPoint;
 
             

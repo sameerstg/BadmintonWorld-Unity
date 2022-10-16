@@ -48,8 +48,9 @@ public class CursorTrail : MonoBehaviour
 
     private void StayTouch(Vector3 position)
     {
-        AddPoint(1, new Vector3(position.x, position.y, 0));
-        UpdateTrailPoints();
+            AddPoint(1, new Vector3(position.x, position.y, 0));
+            UpdateTrailPoints();
+
 
 
     }
@@ -94,6 +95,7 @@ public class CursorTrail : MonoBehaviour
         points = new Vector3[2];
         currentTrail = Instantiate(trailPrefab);
         currentTrail.transform.SetParent(transform, true);
+        currentTrail.positionCount = 0;
     }
 
     private void AddPoint(int index, Vector2 postion)
@@ -104,11 +106,15 @@ public class CursorTrail : MonoBehaviour
     }
 
     private void UpdateTrailPoints()
-    {
+    {//
         if (currentTrail != null && points.Length > 1)
         {
-            currentTrail.positionCount = points.Length;
-            currentTrail.SetPositions(points);
+/*            if (Math.Abs(points[0].x - points[1].x)>1)
+            {
+*/                currentTrail.positionCount = points.Length;
+                currentTrail.SetPositions(points);
+
+            
         }
         else
         {

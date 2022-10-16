@@ -14,7 +14,8 @@ public class HitCalculator : MonoBehaviour
     Vector3 screenPosition, worldPosition;
 
 
-
+    public static Vector2 lastDeltaPos;
+    public static float lastDeltaTime;
     BallManager ballManager;
     private void Awake()
     {
@@ -82,9 +83,7 @@ public class HitCalculator : MonoBehaviour
 
         endPosR = worldPosition;
 
-
-        //obj.transform.position = Camera.main.ViewportToWorldPoint( new Vector3(defaultPos.x+(position.x/Screen.width), defaultPos.y, defaultPos.z));
-        //obj.transform.position = new Vector3(obj.transform.position.x,defaultPos.y,defaultPos.z);
+        /*Calculate();*/
     }
 
     private void EndTouch(Vector3 position, float time)
@@ -94,15 +93,17 @@ public class HitCalculator : MonoBehaviour
         endPos = position;
         endTime = time;
 
-        if (GetDeltaTime() > 0.1)
+        if (GetDeltaTime() > 0.1 && GetDeltaPos().y>0.5)
         {
 
             SetTartgetPosition(endPosR.x - startPosR.x);
         }
 
         Calculate();
-
+        ClearCalculation();
         obj.transform.position = defaultPos;
+        
+
 
     }
     public float GetDeltaTime()
@@ -117,14 +118,22 @@ public class HitCalculator : MonoBehaviour
     }
     void Calculate()
     {
-/*        print($"delta time = {GetDeltaTime()}");
+        lastDeltaPos = GetDeltaPos();
+        lastDeltaTime = GetDeltaTime();
+        DebugCalculation();
+    }
+    void DebugCalculation()
+    {
+        print($"delta time = {GetDeltaTime()}");
         print($"X Delta = {GetDeltaPos().x} , Y Delta {GetDeltaPos().y}");
-        print($"Angle = {Vector2.Angle(GetDeltaPos(),Vector2.up)}");
-*/
-        ClearCalculation();
+        print($"Angle = {Vector2.Angle(GetDeltaPos(), Vector2.up)}");
+
+
     }
     void ClearCalculation()
     {
+        lastDeltaPos = Vector3.zero;
+        lastDeltaTime = 0;
         startPos = Vector2.zero;
         startPosR = Vector2.zero;
         endPos = Vector2.zero;
