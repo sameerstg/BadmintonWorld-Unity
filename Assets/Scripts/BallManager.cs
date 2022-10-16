@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using System.Collections;
 public class BallManager : MonoBehaviour
 {
 
@@ -18,6 +18,7 @@ public class BallManager : MonoBehaviour
     public Vector3 lastLaunchPosition;
     public float lastLaunchTime;
     TrailRenderer trail;
+    public LineRenderer lineRendererForPath;
 
     public enum BallSpeed
     {
@@ -45,14 +46,13 @@ public class BallManager : MonoBehaviour
         {
             Launch();
         }
-
     }
 
     public void Launch()
     {
         SetBallSpeed();
         trail.Clear();
-        target.transform.position = new Vector3(Random.Range(minimumx, maxmumx), 0, Random.Range(minimumz, maximumz));
+        target.transform.position = new Vector3(Random.Range(minimumx, maxmumx), 0.1f, Random.Range(minimumz, maximumz));
         /*        print(target.position);
         */
         ball.SetActive(true);
@@ -60,12 +60,15 @@ public class BallManager : MonoBehaviour
         ballrb.useGravity = true;
 
         ballrb.velocity = CalculateLaunchData().initialVelocity;
+        DrawPath();
+
     }
     public void Launch(Vector3 position)
     {
         trail.Clear();
 
-        target.position = position;
+        target.position = position+Vector3.up*0.1f;
+        
         ball.SetActive(true);
         Physics.gravity = Vector3.up * gravity;
         ballrb.useGravity = true;
@@ -121,18 +124,29 @@ public class BallManager : MonoBehaviour
 
     void DrawPath()
     {
+        target.gameObject.SetActive(true);
+
         LaunchData launchData = CalculateLaunchData();
         Vector3 previousDrawPoint = ballrb.position;
+        int resolution = 50;
+        lineRendererForPath.positionCount = 0;
+        Vector3[] positions = new Vector3[resolution+1];
+        positions[0] = previousDrawPoint;
+        lineRendererForPath.positionCount = resolution;
 
-        int resolution = 30;
         for (int i = 1; i <= resolution; i++)
         {
             float simulationTime = i / (float)resolution * launchData.timeToTarget;
             Vector3 displacement = launchData.initialVelocity * simulationTime + Vector3.up * gravity * simulationTime * simulationTime / 2f;
             Vector3 drawPoint = ballrb.position + displacement;
-            Debug.DrawLine(previousDrawPoint, drawPoint, Color.green);
+            print(i);
+            positions[i] = drawPoint;
+
+            
             previousDrawPoint = drawPoint;
         }
+        lineRendererForPath.SetPositions(positions);
+        StartCoroutine(ResetPath());
     }
     void SetBallSpeed()
     {
@@ -165,6 +179,7 @@ public class BallManager : MonoBehaviour
                 break;
         }
     }
+    
     struct LaunchData
     {
         public Vector3 initialVelocity;
@@ -175,6 +190,13 @@ public class BallManager : MonoBehaviour
             this.initialVelocity = initialVelocity;
             this.timeToTarget = timeToTarget;
         }
+
+    }
+    IEnumerator ResetPath()
+    {
+        yield return new WaitForSeconds(1f);
+        lineRendererForPath.positionCount = 0;
+        target.gameObject.SetActive(false);
 
     }
 }
