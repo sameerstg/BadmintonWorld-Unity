@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
 public class BallManager : MonoBehaviour
 {
 
@@ -19,7 +21,7 @@ public class BallManager : MonoBehaviour
     public float lastLaunchTime;
     TrailRenderer trail;
     public LineRenderer lineRendererForPath;
-
+    public List<Gradient> trailGradients = new List<Gradient>();
     public enum BallSpeed
     {
         slowest, slow, slowMedium, medium, mediumFast, fast, fastest
@@ -37,7 +39,7 @@ public class BallManager : MonoBehaviour
     }
     void Start()
     {
-
+        
     }
 
     void Update()
@@ -79,6 +81,32 @@ public class BallManager : MonoBehaviour
     public void Launch(Vector3 position, float height, float gravity)
     {
         trail.Clear();
+
+        target.position = position;
+        ball.SetActive(true);
+        Physics.gravity = Vector3.up * gravity;
+        ballrb.useGravity = true;
+        ballrb.velocity = CalculateLaunchData(height, gravity).initialVelocity;
+
+    }
+    public void Launch(Vector3 position, float height, float gravity,string color)
+    {
+        trail.Clear();
+        switch (color)
+        {
+            case "s":
+                trail.colorGradient = trailGradients[0];
+                break;
+            case "m":
+                trail.colorGradient = trailGradients[1];
+                break;
+
+            case "f":
+                trail.colorGradient = trailGradients[2];
+                break;
+            default:
+                break;
+        }
 
         target.position = position;
         ball.SetActive(true);

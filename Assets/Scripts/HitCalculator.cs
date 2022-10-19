@@ -28,9 +28,9 @@ public class HitCalculator : MonoBehaviour
         high = 10
 
     }enum Speed{
-        slow = 18,
+        slow = 35,
         medium = 80,
-        fast = 150
+        fast = 200
 
     }
     private void Awake()
@@ -163,8 +163,9 @@ public class HitCalculator : MonoBehaviour
     {
         /*        obj.transform.position = new Vector3(position.x,1,position.z);
         */
-        int height,speed;
-        if (lastDeltaPos.y <20)
+        int height = 2,speed;
+        string color;
+        /*if (lastDeltaPos.y <35)
         {
             height = (int)Height.low;
         }
@@ -177,22 +178,28 @@ public class HitCalculator : MonoBehaviour
         {
             height = (int)Height.high;
 
-        }if (lastDeltaTime <0.2)
+        }*/if (lastDeltaTime <0.08)
         {
             speed = (int)Speed.fast;
+            color ="f";
         }
-        else if (lastDeltaTime < 0.6)
+        else if (lastDeltaTime < 0.3)
         {
             speed = (int)Speed.medium;
+            color = "m";
 
         }
         else
         {
             speed = (int)Speed.slow;
+            color = "s";
 
         }
+        float totalZ = -((zRange - minZRange)/100*lastDeltaPos.y);
+        totalZ += Math.Abs(minZRange);
+/*        print(totalZ);
         print($"height {height} , speed {speed}");
-        ballManager.Launch(new Vector3(position.x, obj.transform.position.y, obj.transform.position.z), height, -speed);
+*/        ballManager.Launch(new Vector3(position.x, obj.transform.position.y, totalZ), height, -speed,color);
 
 
     }

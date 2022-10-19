@@ -35,8 +35,8 @@ public class PointerController : MonoBehaviour
 
         }
 
-        AICharacterControl._instance.SetTarget(worldPosition);
-    }
+/*        AICharacterControl._instance.SetTarget(worldPosition);
+*/    }
 
     private void OnDisable()
     {
