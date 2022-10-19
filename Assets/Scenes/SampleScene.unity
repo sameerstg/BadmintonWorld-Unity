@@ -3735,6 +3735,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obj: {fileID: 403291826}
+  xRange: 0
+  zRange: 0
+  minZRange: 0
 --- !u!1001 &1548814378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3837,11 +3840,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2212999006503704896, guid: 6dea9a2391530b9488c8d0a91d3bfd82, type: 3}
       propertyPath: minimumx
-      value: 4.7
+      value: 5.7
       objectReference: {fileID: 0}
     - target: {fileID: 2212999006503704896, guid: 6dea9a2391530b9488c8d0a91d3bfd82, type: 3}
       propertyPath: minimumz
-      value: 0
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 2212999006503704896, guid: 6dea9a2391530b9488c8d0a91d3bfd82, type: 3}
       propertyPath: debugPath

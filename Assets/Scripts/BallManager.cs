@@ -53,8 +53,8 @@ public class BallManager : MonoBehaviour
         SetBallSpeed();
         trail.Clear();
         target.transform.position = new Vector3(Random.Range(minimumx, maxmumx), 0.1f, Random.Range(minimumz, maximumz));
-        /*        print(target.position);
-        */
+/*        print(target.position);
+*/
         ball.SetActive(true);
         Physics.gravity = Vector3.up * gravity;
         ballrb.useGravity = true;

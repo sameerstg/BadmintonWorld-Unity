@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class HitCalculator : MonoBehaviour
@@ -12,11 +13,26 @@ public class HitCalculator : MonoBehaviour
     Vector3 defaultPos;
     Plane plane = new Plane(Vector3.up, 0);
     Vector3 screenPosition, worldPosition;
-
-
+    public float xRange, zRange,minZRange;
+    float angle;
     public static Vector2 lastDeltaPos;
     public static float lastDeltaTime;
     BallManager ballManager;
+
+
+
+    
+    enum Height{
+        low = 1,
+        medium = 5,
+        high = 10
+
+    }enum Speed{
+        slow = 18,
+        medium = 80,
+        fast = 150
+
+    }
     private void Awake()
     {
         inputManager = InputManager._instance;
@@ -93,13 +109,12 @@ public class HitCalculator : MonoBehaviour
         endPos = position;
         endTime = time;
 
-        if (GetDeltaTime() > 0.1 && GetDeltaPos().y>0.5)
+        if (Vector3.Distance(position,startPos)>40)
         {
-
-            SetTartgetPosition(endPosR.x - startPosR.x);
+            Calculate();
+            SetTartgetPosition(endPosR - startPosR);
         }
 
-        Calculate();
         ClearCalculation();
         obj.transform.position = defaultPos;
         
@@ -118,16 +133,17 @@ public class HitCalculator : MonoBehaviour
     }
     void Calculate()
     {
+        angle = endPosR.x - startPos.x;
         lastDeltaPos = GetDeltaPos();
         lastDeltaTime = GetDeltaTime();
         DebugCalculation();
     }
     void DebugCalculation()
     {
-        print($"delta time = {GetDeltaTime()}");
+/*        print($"delta time = {GetDeltaTime()}");
         print($"X Delta = {GetDeltaPos().x} , Y Delta {GetDeltaPos().y}");
-        print($"Angle = {Vector2.Angle(GetDeltaPos(), Vector2.up)}");
-
+*//*        print($"Angle = {Vector2.Angle(GetDeltaPos(), Vector2.up)}");
+*/
 
     }
     void ClearCalculation()
@@ -145,8 +161,42 @@ public class HitCalculator : MonoBehaviour
 
     void SetTartgetPosition(Vector3 position)
     {
-        obj.transform.position = new Vector3(position.x,1,position.z);
-    }void SetTartgetPosition( float x)
+        /*        obj.transform.position = new Vector3(position.x,1,position.z);
+        */
+        int height,speed;
+        if (lastDeltaPos.y <20)
+        {
+            height = (int)Height.low;
+        }
+        else if (lastDeltaPos.y < 60)
+        {
+            height = (int)Height.medium;
+
+        }
+        else
+        {
+            height = (int)Height.high;
+
+        }if (lastDeltaTime <0.2)
+        {
+            speed = (int)Speed.fast;
+        }
+        else if (lastDeltaTime < 0.6)
+        {
+            speed = (int)Speed.medium;
+
+        }
+        else
+        {
+            speed = (int)Speed.slow;
+
+        }
+        print($"height {height} , speed {speed}");
+        ballManager.Launch(new Vector3(position.x, obj.transform.position.y, obj.transform.position.z), height, -speed);
+
+
+    }
+    void SetTartgetPosition( float x)
     {
         /*        obj.transform.position = new Vector3(x,defaultPos.y,defaultPos.z);
         */

@@ -12,7 +12,7 @@ public class CursorTrail : MonoBehaviour
     private LineRenderer currentTrail;
     private Vector3[] points = new Vector3[2];
 
-
+    Vector3 lastPositon;
 
 
     InputManager inputManager;
@@ -40,16 +40,19 @@ public class CursorTrail : MonoBehaviour
         CreateCurrentTrail();
         AddPoint(0, new Vector3(position.x, position.y, 0));
         AddPoint(1, new Vector3(position.x, position.y, 0));
-        UpdateTrailPoints();
-
-
+/*        UpdateTrailPoints();
+*/        lastPositon = position;
     }
 
 
     private void StayTouch(Vector3 position)
     {
+        if (Vector3.Distance(lastPositon,position)>40)
+        {
             AddPoint(1, new Vector3(position.x, position.y, 0));
             UpdateTrailPoints();
+            lastPositon = position;
+        }
 
 
 
